@@ -14,5 +14,5 @@ Use curl to dump some content to the dumper
 In PHP use Guzzle to dump some string
 
 ```
-(new GuzzleHttp\Client(['base_uri' => 'http://10.144.130.25:8000']))->post('/', ['json' => $value]);
+(new GuzzleHttp\Client(['base_uri' => 'http://localhost:8000']))->post('/', ['json' => $value]);
 ```
