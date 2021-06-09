@@ -7,11 +7,7 @@ const PORT = process.env.PORT || 8000
 
 const app = express();
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
- 
-// parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.text({type:"*/*"}))
 
 //initialize a simple http server
 const server = http.createServer(app);
@@ -42,11 +38,9 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/templates/index.html');
 })
 
-app.post('/', (req, res) => {
-  console.log(req.body);
-  
+app.post('/', (req: express.Request, res: express.Response) => {
   wss.clients.forEach((ws: any) => {
-      ws.send(JSON.stringify(req.body))
+      ws.send(req.body)
   });
 
   res.send('ok');
