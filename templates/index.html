@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dumper</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Dumper</h1>
+        <button class="btn btn-sm btn-success" type="button" onclick="document.querySelector('#container').innerHTML = ''">Clear events</button>
+        <div id="container"></div>
+    </div>
+
+    <script>
+        var ws = new WebSocket('ws://localhost:8000');
+
+        // event emmited when connected
+        ws.onopen = function () {
+            console.log('websocket is connected ...')
+            // sending a send event to websocket server
+            ws.send('connected')
+        }
+
+        // event emmited when receiving message 
+        ws.onmessage = function (ev) {
+            document.querySelector('#container').innerHTML += '<div class="row"><div class="col">' + new Date().toISOString() + ' - <code>' + ev.data + '</code></div></div>'
+        }
+    </script>
+</body>
+</html>
