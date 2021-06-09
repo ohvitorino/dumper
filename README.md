@@ -3,6 +3,7 @@
 A simple logging tool
 
 `npm install`
+
 `npm run start`
 
 Head to http://localhost:8000
