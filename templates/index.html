@@ -19,14 +19,46 @@
     
     <div class="container">
         <h1>Dumper</h1>
-        <button class="btn btn-sm btn-success mb-3" type="button" onclick="document.querySelector('#container').innerHTML = ''">Clear events</button>
+        <div class="d-flex justify-content-between">
+            <div>
+                <button class="btn btn-sm btn-success mb-3" type="button" id="clear-button">Clear events</button>
+                <button class="btn btn-sm btn-warning mb-3" type="button" id="pause-button">Pause</button>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label" for="scroll-to-bottom-checkbox">Always scroll to bottom</label>
+                <input class="form-check-input" type="checkbox" value="" id="scroll-to-bottom-checkbox" checked>
+            </div>
+        </div>
         <div id="container"></div>
     </div>
 
     <script>
-        var ws = new WebSocket('ws://localhost:8000');
+        var running = true
+        var scrollToBottom = true
 
         var container = document.querySelector('#container')
+
+        document.querySelector('#pause-button').addEventListener('click', function (event) {
+            if (running === true) {
+                event.currentTarget.innerHTML = 'Continue'
+                running = false
+
+                return
+            }
+
+            event.currentTarget.innerHTML = 'Pause'
+            running = true
+        })
+
+        document.querySelector('#clear-button').addEventListener('click', function (event) {
+            container.innerHTML = ''
+        })
+
+        document.querySelector('#scroll-to-bottom-checkbox').addEventListener('change', function (event) {
+            scrollToBottom = event.currentTarget.checked
+        })
+
+        var ws = new WebSocket('ws://localhost:8000');
 
         // event emmited when connected
         ws.onopen = function () {
@@ -37,10 +69,21 @@
 
         // event emmited when receiving message 
         ws.onmessage = function (ev) {
+            if (running === false) {
+                return
+            }
+
             var template = document.createElement('template')
             template.innerHTML = '<div class="row p-2 m-1 bg-light rounded"><div class="col">' + new Date().toISOString() + ' - <code>' + ev.data + '</code></div></div>'
             container.appendChild(template.content.firstChild)
-            container.scrollTop = container.scrollHeight
+
+            if (scrollToBottom === true) {
+                container.scrollTop = container.scrollHeight
+            }
+
+            if (container.childElementCount > 250) {
+                container.firstElementChild.remove()
+            }
         }
     </script>
 </body>
