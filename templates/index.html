@@ -90,8 +90,14 @@
                 return
             }
 
+            var data = ev.data
+            try {
+                data = JSON.stringify(JSON.parse(ev.data), null, 4)
+            } catch (error) {
+            }
+
             var template = document.createElement('template')
-            template.innerHTML = '<div class="row p-2 m-1 bg-light rounded"><div class="col">' + new Date().toISOString() + ' - <code>' + ev.data + '</code></div></div>'
+            template.innerHTML = '<div class="row p-2 m-1 bg-light rounded"><div class="col">' + new Date().toISOString() + ' - <pre><code>' + data + '</code></pre></div></div>'
             container.appendChild(template.content.firstChild)
 
             if (scrollToBottom === true) {
