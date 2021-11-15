@@ -31,11 +31,11 @@
             <div class="col">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-heading$ID$">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse$ID$" aria-expanded="false" aria-controls="flush-collapse$ID$">
-                            $DATE$ - $SUMARY$
-                        </button>
-                        </h2>
+                        <div class="accordion-header d-flex justify-content-between" id="flush-heading$ID$">
+                            <div class="ms-3 pt-3">$DATE$ - $SUMARY$</div>
+                            <button class="accordion-button collapsed" style="width: 5%;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse$ID$" aria-expanded="false" aria-controls="flush-collapse$ID$">
+                            </button>
+                        </div>
                         <div id="flush-collapse$ID$" class="accordion-collapse collapse" aria-labelledby="flush-heading$ID$" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <pre><code>$CONTENT$</code></pre>
