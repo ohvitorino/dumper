@@ -16,7 +16,7 @@
             overflow-y: scroll;
         }
 
-        footer {            
+        footer {
             position: absolute;
             bottom: 0;
             width: 100%;
@@ -47,7 +47,7 @@
         </div>
     </template>
 
-    
+
     <div class="container">
         <h1>Dumper</h1>
         <div class="d-flex justify-content-between">
@@ -127,7 +127,7 @@
             modal.show()
         })
 
-        var ws = new WebSocket('ws://localhost:8000');
+        var ws = new WebSocket('ws://localhost:{{PORT}}');
 
         // event emmited when connected
         ws.onopen = function () {
@@ -136,7 +136,7 @@
             ws.send('connected')
         }
 
-        // event emmited when receiving message 
+        // event emmited when receiving message
         ws.onmessage = function (ev) {
             if (running === false) {
                 return

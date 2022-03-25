@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import WebSocket from 'ws';
 import bodyParser from 'body-parser';
+import * as fs from "fs";
 
 const PORT = process.env.PORT || 8000
 
@@ -24,7 +25,7 @@ wss.on('connection', (ws: WebSocket) => {
         console.log('received: %s', message);
     });
 
-    //send immediatly a feedback to the incoming connection    
+    //send immediatly a feedback to the incoming connection
     ws.send('Connected');
 });
 
@@ -34,7 +35,9 @@ server.listen(PORT, () => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/templates/index.html');
+    fs.readFile(__dirname + '/templates/index.html', 'utf8', (err, text) => {
+        res.send(text.replace('{{PORT}}', PORT.toString()));
+    });
 })
 
 app.post('/', (req: express.Request, res: express.Response) => {
