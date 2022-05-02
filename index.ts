@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import WebSocket from 'ws';
 import bodyParser from 'body-parser';
-import * as fs from "fs";
+import * as fs from 'fs';
 
 const PORT = process.env.PORT || 8000
 
