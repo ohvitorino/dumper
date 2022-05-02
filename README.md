@@ -8,6 +8,11 @@ A simple logging tool
 
 Go to http://localhost:8000 on your browser.
 
+If you want to use a different port create a `.env` file with the following content:
+```
+PORT=[your port]
+```
+
 Use curl to dump some content to the dumper:
 
 `curl --request POST --data 'test' http://localhost:8000`
