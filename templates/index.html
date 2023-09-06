@@ -127,7 +127,7 @@
             modal.show()
         })
 
-        var ws = new WebSocket('ws://localhost:{{PORT}}');
+        var ws = new WebSocket('ws://' + window.location.hostname + ':{{PORT}}');
 
         // event emmited when connected
         ws.onopen = function () {
